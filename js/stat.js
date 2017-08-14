@@ -1,3 +1,5 @@
+'use strict';
+
 window.renderStatistics = function (ctx, names, times) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // shadow;
   ctx.strokeRect(110, 20, 420, 270);
@@ -14,28 +16,26 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', 120, 60);
 
   var max = -1;
-  var maxIndex = -1;
 
-  for (var i = 0 ; i < times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
     var time = times[i];
     if (time > max) {
       max = time;
-      maxIndex = i;
     }
   }
 
-  var histogramHeight = -150;              // px;
+  var histogramHeight = -150; // px;
   var step = histogramHeight / (max - 0); // px;
 
 
   var barWidth = 40; // px;
   var indentSignature = 20; // px;
-  var indent = 90;    // px;
+  var indent = 90; // px;
   var initialX = 140; // px;
-  var initialY = 240;  // px;
+  var initialY = 240; // px;
 
   ctx.textBaseline = 'bottom'; // положение надписи от левого нижнего угла
-  for(var i = 0; i < times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * step);
