@@ -35,7 +35,7 @@ window.renderStatistics = function (ctx, names, times) {
   var initialY = 240; // px;
 
   ctx.textBaseline = 'bottom'; // положение надписи от левого нижнего угла
-  for (var i = 0; i < times.length; i++) {
+  for (i = 0; i < times.length; i++) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * step);
