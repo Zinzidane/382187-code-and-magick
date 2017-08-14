@@ -25,7 +25,7 @@ window.renderStatistics = function (ctx, names, times) {
   }
 
   var histogramHeight = -150; // px;
-  var step = histogramHeight / (max - 0); // px;
+  var step = histogramHeight / max; // px;
 
 
   var barWidth = 40; // px;
@@ -38,17 +38,14 @@ window.renderStatistics = function (ctx, names, times) {
   for (i = 0; i < times.length; i++) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-      ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * step);
-      ctx.fillStyle = '#000'; // black;
-      ctx.fillText(names[i], initialX + indent * i, initialY + indentSignature);
-      ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY + times[i] * step);
     } else {
       ctx.fillStyle = 'rgba' + '(' + '0, 0, 255, ' + Math.random() + ')'; // opacity of blue color generated randomly
-      ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * step);
-      ctx.fillStyle = '#000'; // black;
-      ctx.fillText(names[i], initialX + indent * i, initialY + indentSignature);
-      ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY + times[i] * step);
     }
+
+    ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * step);
+    ctx.fillStyle = '#000'; // black;
+    ctx.fillText(names[i], initialX + indent * i, initialY + indentSignature);
+    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY + times[i] * step);
   }
 };
 
