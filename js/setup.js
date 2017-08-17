@@ -49,13 +49,11 @@ var getRandomElement = function (arr) {
 };
 
 var createRandomWizard = function () {
-  var randomWizard = {
+  return {
     'name': getRandomElement(names) + ' ' + getRandomElement(surnames),
     'coatColor': getRandomElement(coatColor),
     'eyesColor': getRandomElement(eyesColor)
   };
-
-  return randomWizard;
 };
 
 var getRandomWizards = function (num) {
@@ -83,12 +81,10 @@ var addWizards = function (fragment, wizards) {
     fragment.appendChild(renderWizard(wizards[i]));
   }
   similarListElement.appendChild(fragment);
-
-  document.querySelector('.setup-similar').classList.remove('hidden');
 };
-
 
 var wizards = getRandomWizards(4);
 var fragment = document.createDocumentFragment();
 
 addWizards(fragment, wizards);
+document.querySelector('.setup-similar').classList.remove('hidden');
