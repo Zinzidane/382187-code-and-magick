@@ -44,8 +44,7 @@ var eyesColor = [
 ];
 
 var getRandomElement = function (arr) {
-  var randomNumber = Math.floor(Math.random() * arr.length);
-  return arr[randomNumber];
+  return arr[Math.floor(Math.random() * arr.length)];
 };
 
 var createRandomWizard = function () {
