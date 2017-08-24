@@ -103,7 +103,6 @@ var ENTER_KEYCODE = 13;
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-var setupSubmit = document.querySelector('.setup-submit');
 var userWizardCoat = document.getElementsByClassName('wizard-coat')[0];
 var userWizardEyes = document.getElementsByClassName('wizard-eyes')[0];
 var userWizardFireball = document.querySelector('.setup-fireball-wrap');
