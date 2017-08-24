@@ -7,7 +7,7 @@ userDialog.classList.remove('hidden');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
-var names = [
+var NAMES = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -17,7 +17,7 @@ var names = [
   'Люпита',
   'Вашингтон'
 ];
-var surnames = [
+var SURNAMES = [
   'да Марья',
   'Верон',
   'Мирабелла',
@@ -27,7 +27,7 @@ var surnames = [
   'Нионго',
   'Ирвинг'
 ];
-var coatColor = [
+var COAT_COLOR = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
   'rgb(146, 100, 161)',
@@ -35,14 +35,14 @@ var coatColor = [
   'rgb(215, 210, 55)',
   'rgb(0, 0, 0)'
 ];
-var eyesColor = [
+var EYES_COLOR = [
   'black',
   'red',
   'blue',
   'yellow',
   'green'
 ];
-var fireballColor = [
+var FIREBALL_COLOR = [
   '#ee4830',
   '#30a8ee',
   '#5ce6c0',
@@ -57,9 +57,9 @@ var getRandomElement = function (arr) {
 
 var createRandomWizard = function () {
   return {
-    'name': getRandomElement(names) + ' ' + getRandomElement(surnames),
-    'coatColor': getRandomElement(coatColor),
-    'eyesColor': getRandomElement(eyesColor)
+    'name': getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
+    'coatColor': getRandomElement(COAT_COLOR),
+    'eyesColor': getRandomElement(EYES_COLOR)
   };
 };
 
@@ -107,34 +107,10 @@ var setupSubmit = document.querySelector('.setup-submit');
 var userWizardCoat = document.getElementsByClassName('wizard-coat')[0];
 var userWizardEyes = document.getElementsByClassName('wizard-eyes')[0];
 var userWizardFireball = document.querySelector('.setup-fireball-wrap');
-var userNameInput = setup.querySelector('.setup-user-name');
-
-
-userNameInput.addEventListener('invalid', function () {
-  if (!userNameInput.validity.valid) {
-    if (userNameInput.validity.tooShort) {
-      userNameInput.setCustomValidity('Имя должно состоять минимум из 1-го символа');
-    } else if (userNameInput.validity.tooLong) {
-      userNameInput.setCustomValidity('Имя не должно превышать 50-ти символов');
-    } else if (userNameInput.validity.valueMissing) {
-      userNameInput.setCustomValidity('Имя должно состоять минимум из 1-го символа');
-    }
-  } else {
-    userNameInput.setCustomValidity('');
-  }
-});
-
-userNameInput.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value.length < 1) {
-    target.setCustomValidity('Имя должно состоять минимум из 1-го символа');
-  } else {
-    target.setCustomValidity('');
-  }
-});
+var userNameInput = document.querySelector('.setup-user-name');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== userNameInput) {
     closePopup();
   }
 };
@@ -143,27 +119,44 @@ var onPopupEscPress = function (evt) {
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
+  userNameInput.addEventListener('invalid', checkValidUserName);
 };
 
 // Функция закрытия попапа
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
+  userNameInput.removeEventListener('invalid', checkValidUserName);
+};
+
+// Функция проверки валидности имени пользователя
+var checkValidUserName = function () {
+  if (!userNameInput.validity.valid) {
+    if (userNameInput.validity.tooShort) {
+      userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+    } else if (userNameInput.validity.tooLong) {
+      userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+    } else if (userNameInput.validity.valueMissing) {
+      userNameInput.setCustomValidity('Заполните это поле');
+    }
+  } else {
+    userNameInput.setCustomValidity('');
+  }
 };
 
 // Функция изменения цвета плаща мага
 var changeCoatColor = function () {
-  userWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(coatColor) + ';');
+  userWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(COAT_COLOR) + ';');
 };
 
 // Функция изменения цвета глаз мага
 var changeEyesColor = function () {
-  userWizardEyes.setAttribute('style', 'fill: ' + getRandomElement(eyesColor) + ';');
+  userWizardEyes.setAttribute('style', 'fill: ' + getRandomElement(EYES_COLOR) + ';');
 };
 
 // Функция изменения цвета фаербола
 var changeFireballColor = function () {
-  userWizardFireball.setAttribute('style', 'background-color: ' + getRandomElement(fireballColor) + ';');
+  userWizardFireball.setAttribute('style', 'background-color: ' + getRandomElement(FIREBALL_COLOR) + ';');
 };
 
 // Октрытие попапа по нажатию левому клику на аватарку
@@ -186,20 +179,6 @@ setupClose.addEventListener('click', function () {
 // Закрытие попапа по нажатию клавиши Enter на фокусе крестика
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    closePopup();
-  }
-});
-
-// Закрытие окна по левому клику на кнопку "Сохранить"
-setupSubmit.addEventListener('click', function (evt) {
-  preventDefault();
-  closePopup();
-});
-
-// Закрытие окна по нажатию клавишей Enter на кнопку "Сохранить"
-setupSubmit.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    preventDefault();
     closePopup();
   }
 });
