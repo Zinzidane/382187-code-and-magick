@@ -4,10 +4,8 @@
 (function () {
 
   window.colorizeElement = function (element, array, action) {
-    var active = 0;
     element.addEventListener('click', function () {
-      active = ++active % array.length;
-      action(element, array[active]);
+      action(element, array[Math.floor(Math.random() * array.length)]);
     });
   };
 
