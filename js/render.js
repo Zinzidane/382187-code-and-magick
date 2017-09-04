@@ -35,28 +35,17 @@
     return fragment;
   }
 
-  function getWizardElementRandomColor(element, array) {
-    element.style.fill = window.util.getRandomElement(array);
-  }
+  var fillElement = function (element, color) {
+    element.style.fill = color;
+  };
 
+  var changeElementBackground = function (element, color) {
+    element.style.backgroundColor = color;
+  };
 
-  function getRandomFireballColor() {
-    fireball.style.background = window.util.getRandomElement(WIZARD_PARAMS.fireballColors);
-  }
-
-
-  wizardCoat.addEventListener('click', function () {
-    getWizardElementRandomColor(wizardCoat, WIZARD_PARAMS.coatColors);
-  });
-
-  wizardEyes.addEventListener('click', function () {
-    getWizardElementRandomColor(wizardEyes, WIZARD_PARAMS.eyesColors);
-  });
-
-  fireball.addEventListener('click', function () {
-    getRandomFireballColor();
-  });
-
+  window.colorizeElement(wizardCoat, WIZARD_PARAMS.coatColors, fillElement);
+  window.colorizeElement(wizardEyes, WIZARD_PARAMS.eyesColors, fillElement);
+  window.colorizeElement(fireball, WIZARD_PARAMS.fireballColors, changeElementBackground);
 
   renderWizards();
 
