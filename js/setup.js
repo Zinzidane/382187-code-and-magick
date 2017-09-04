@@ -73,6 +73,7 @@
   });
 
   artifactsElement.addEventListener('dragover', function (evt) {
+    artifactsElement.style.outline = '';
     evt.preventDefault();
   });
 
@@ -90,6 +91,7 @@
   });
 
   artifactsElement.addEventListener('dragleave', function (evt) {
+    artifactsElement.style.outline = '';
     evt.target.style.backgroundColor = '';
     evt.preventDefault();
   });
