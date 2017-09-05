@@ -5,7 +5,7 @@
   var setup = window.render.setup;
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
-  var setupSubmit = setup.querySelector('.setup-submit');
+  var form = setup.querySelector('.setup-wizard-form');
   var setupUserName = setup.querySelector('.setup-user-name');
 
   function popupEscPressHandler(evt) {
@@ -45,16 +45,31 @@
     window. util.isEnterEvent(evt, closePopup);
   });
 
-  setupSubmit.addEventListener('click', function () {
+  var successHandler = function () {
+    closePopup();
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style.zIndex = 100;
+    node.style.margin = '0 auto';
+    node.style.textAlign = 'center';
+    node.style.backgroundColor = 'red';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
     if (setupUserName.checkValidity() === true) {
-      closePopup();
+      window.backend.save(successHandler, errorHandler, new FormData(form));
     }
   });
-
-  setupSubmit.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, closePopup);
-  });
-
 
   setup.querySelector('.setup-similar').classList.remove('hidden');
 
