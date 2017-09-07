@@ -2,6 +2,7 @@
 'use strict';
 
 (function () {
+  var DEBOUNCE_INTERVAL = 300;
   var coatColor;
   var eyesColor;
   var wizards = [];
@@ -31,12 +32,12 @@
 
   window.wizard.onEyesChange = function (color) {
     eyesColor = color;
-    window.debounce(updateWizards);
+    window.debounce(updateWizards, DEBOUNCE_INTERVAL);
   };
 
   window.wizard.onCoatChange = function (color) {
     coatColor = color;
-    window.debounce(updateWizards);
+    window.debounce(updateWizards, DEBOUNCE_INTERVAL);
   };
 
   var successHandler = function (data) {
