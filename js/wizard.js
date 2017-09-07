@@ -34,20 +34,18 @@
   var fireball = setup.querySelector('.setup-fireball-wrap');
 
   var wizard = {
-    onEyesChange: function (color) {},
-    onCoatChange: function (color) {}
+    onEyesChange: function () {},
+    onCoatChange: function () {}
   };
 
-  wizardCoat.addEventListener('click', function () {
-    var newColor = window.util.getRandomElement(WIZARD_PARAMS.coatColors);
-    this.style.fill = newColor;
-    wizard.onCoatChange(newColor);
+  window.colorizeElement(wizardCoat, WIZARD_PARAMS.coatColors, function (element, color) {
+    element.style.fill = color;
+    window.wizard.onCoatChange(color);
   });
 
-  wizardEyes.addEventListener('click', function () {
-    var newColor = window.util.getRandomElement(WIZARD_PARAMS.eyesColors);
-    this.style.fill = newColor;
-    wizard.onEyesChange(newColor);
+  window.colorizeElement(wizardEyes, WIZARD_PARAMS.eyesColors, function (element, color) {
+    element.style.fill = color;
+    window.wizard.onEyesChange(color);
   });
 
   var changeElementBackground = function (element, color) {
