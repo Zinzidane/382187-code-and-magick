@@ -2,7 +2,7 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 300;
+  var DEBOUNCE_INTERVAL = 600;
   var coatColor;
   var eyesColor;
   var wizards = [];
