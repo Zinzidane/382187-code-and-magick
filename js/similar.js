@@ -2,7 +2,7 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 600;
+  var DEBOUNCE_INTERVAL = 300;
   var coatColor;
   var eyesColor;
   var wizards = [];
@@ -30,15 +30,18 @@
     }));
   };
 
+  var upgradeWizardsDebounce = window.debounce(updateWizards, DEBOUNCE_INTERVAL);
+
   window.wizard.onEyesChange = function (color) {
     eyesColor = color;
-    window.debounce(updateWizards, DEBOUNCE_INTERVAL);
+    upgradeWizardsDebounce();
   };
 
   window.wizard.onCoatChange = function (color) {
     coatColor = color;
-    window.debounce(updateWizards, DEBOUNCE_INTERVAL);
+    upgradeWizardsDebounce();
   };
+
 
   var successHandler = function (data) {
     wizards = data;
