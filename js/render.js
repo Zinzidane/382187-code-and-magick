@@ -6,17 +6,28 @@
   var setup = document.querySelector('.setup');
   var similar = setup.querySelector('.setup-similar');
   var similarListElement = setup.querySelector('.setup-similar-list');
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+  var wizardTemplate = document.querySelector('#similar-wizard-template');
 
-  function renderWizard(wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
+  var renderWizardArtifacts = function (wizard) {
+    return wizard.artifacts.map(function (it) {
+      return it.name;
+    }).join('<br>');
+  };
 
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  var renderWizard = function (wizard) {
+    var element = wizardTemplate.content.cloneNode(true);
+    var wizardElement = element.querySelector('.wizard');
+
     wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
     wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
+    element.querySelector('.setup-similar-label').innerText = wizard.name;
 
-    return wizardElement;
-  }
+    window.popup(wizardElement, function () {
+      return renderWizardArtifacts(wizard);
+    });
+
+    return element;
+  };
 
   window.render = function (data) {
     var takeNumber = data.length > 4 ? 4 : data.length;
