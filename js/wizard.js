@@ -53,7 +53,23 @@
   };
 
   window.colorizeElement(fireball, WIZARD_PARAMS.fireballColors, changeElementBackground);
-  window.wizard = wizard;
 
+  document.querySelector('.setup-wizard-form').addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    var wizardCopy = document.querySelector('svg').cloneNode(true);
+
+    wizardCopy.querySelector('#wizard-coat').style.fill = wizardCoat.style.fill;
+    wizardCopy.querySelector('#wizard-eyes').style.fill = wizardEyes.style.fill;
+
+    var wizardBase64Right = window.svg2base64(wizardCopy);
+
+    // Чтобы развернуть мага, его надо подвинуть на его ширину, а затем отразить
+    wizardCopy.querySelector('#wizard').setAttribute('transform', 'translate(62, 0) scale(-1, 1)');
+    var wizardBase64Left = window.svg2base64(wizardCopy);
+
+    window.restartGame(wizardBase64Right, wizardBase64Left);
+  });
+
+  window.wizard = wizard;
   return window.wizard;
 })();
