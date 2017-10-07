@@ -28,5 +28,5 @@
       target.addEventListener('mousemove', onMouseMove);
       target.addEventListener('mouseleave', onMouseOut);
     });
-  }
+  };
 })();
