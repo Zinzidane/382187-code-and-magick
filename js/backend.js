@@ -2,7 +2,7 @@
 'use strict';
 
 (function () {
-  var URL = 'https://1510.dump.academy/code-and-magick';
+  var URL = 'https://js.dump.academy/code-and-magick';
   var sendRequest = function (method, url, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
